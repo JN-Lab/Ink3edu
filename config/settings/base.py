@@ -70,7 +70,11 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     "ink3edu.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "ink3edu.interactions.apps.InteractionsConfig",
+    "ink3edu.dashboard.apps.DashboardConfig",
+    "ink3edu.content.apps.ContentConfig",
+    "ink3edu.payments.apps.PaymentsConfig",
+    "ink3edu.trainings.apps.TrainingsConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
