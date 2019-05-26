@@ -59,7 +59,7 @@ class Chapter(models.Model):
     This class represents the chapters created
     """
 
-    title = models.Charfield(max_length=250)
+    title = models.CharField(max_length=250)
     description = models.TextField()
 
     def __str__(self):
