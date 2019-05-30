@@ -68,7 +68,7 @@ class Chapter(models.Model):
 class ChaptersInSections(models.Model):
     """
     This class represents the chapters per sections
-    This is an association tables between Sections and Chapters
+    This is an association table between Sections and Chapters
     where we organize the chapters inside the sections
     """
     
