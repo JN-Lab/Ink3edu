@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
-from ..trainings.models import Training
+from django.utils import timezone
+from ink3edu.users.models import User
+from ink3edu.trainings.models import Training
 
 class Student(models.Model):
     """
@@ -8,7 +9,7 @@ class Student(models.Model):
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    trainings = models.ManyToManyField('Training',
+    trainings = models.ManyToManyField(Training,
                                        through='StudentsFollowingTrainings',
                                        related_name='students')
 
@@ -21,7 +22,7 @@ class Mentor(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     description = models.TextField()
-    trainings = models.ManyToManyField('Training',
+    trainings = models.ManyToManyField(Training,
                                        through='MentorsBuildingTrainings',
                                        related_name='mentors')
     roles = models.ManyToManyField('Role',
@@ -36,7 +37,7 @@ class Role(models.Model):
     This class represents the roles created
     """
     label = models.CharField(max_length=100)
-    description = model.TextField()
+    description = models.TextField()
 
     def __str__(self):
         return self.label
@@ -45,7 +46,7 @@ class Group(models.Model):
     """
     This class represents the groups created
     """
-    name = models.CharField(max_lenght=100)
+    name = models.CharField(max_length=100)
     description = models.TextField()
     mentors = models.ManyToManyField('Mentor',
                                      related_name='groups')
@@ -61,7 +62,7 @@ class StudentsFollowingTrainings(models.Model):
     student = models.ForeignKey('Student',
                                 on_delete=models.CASCADE,
                                 related_name='student_with_trainings')
-    training = models.ForeignKey('Training',
+    training = models.ForeignKey(Training,
                                  on_delete=models.CASCADE,
                                  related_name='training_per_student')
     done = models.BooleanField(default=False)
@@ -79,7 +80,7 @@ class MentorsBuildingTrainings(models.Model):
     mentor = models.ForeignKey('Mentor',
                                on_delete=models.CASCADE,
                                related_name='mentors_with_trainings')
-    training = models.ForeignKey('Training',
+    training = models.ForeignKey(Training,
                                  on_delete=models.CASCADE,
                                  related_name='training_per_mentors')
 
