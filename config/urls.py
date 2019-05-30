@@ -17,6 +17,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path("trainings/", include("ink3edu.trainings.urls", namespace="trainings")),
+    path("interactions/", include("ink3edu.interactions.urls", namespace="interactions")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
