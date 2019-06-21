@@ -1,12 +1,12 @@
 #! /usr/bin/env python3
 # coding: utf-8
-from users.models import User
-from trainings.models import Training, Section, SectionsInTrainings, Chapter, ChaptersInSections, Status, Category
-from interactions.models import Student, Mentor, Role, Group, StudentsFollowingTrainings, MentorsBuildingTrainings
+from .users.models import User
+from .trainings.models import Training, Section, SectionsInTrainings, Chapter, ChaptersInSections, Status, Category
+from .interactions.models import Student, Mentor, Role, Group, StudentsFollowingTrainings, MentorsBuildingTrainings
 
 class TestDatabase:
     """
-    This presents a dataset which has to be used for all unit tests. 
+    This presents a dataset which has to be used for all unit tests.
     """
 
     @staticmethod
@@ -14,7 +14,7 @@ class TestDatabase:
         """
         This method creates the dataset for the unit tests
         """
-        
+
         """
         We create some users with different typologies:
             - We create an admin account which is also a mentor
@@ -27,7 +27,7 @@ class TestDatabase:
         admin = User.objects.create_superuser(username='admin_user', password='admin_password', email='test@test.com')
         mentor_admin = Mentor(user=admin)
         mentor_admin.save()
-        
+
         # We create john which is a student (student_john)
         john = User.objects.create_user(username='john', password='john_password', is_staff=False)
         student_john = Student(user=john)
@@ -55,7 +55,7 @@ class TestDatabase:
         mentor_george = Mentor(user=george)
         mentor_george.save()
 
-        # We create mike which is a student (student_mike) and a mentor (mentor_mike) 
+        # We create mike which is a student (student_mike) and a mentor (mentor_mike)
         mike = User.objects.create_user(username='mike', password='mike_password')
         student_mike = Student(user=mike)
         student_mike.save()
@@ -188,7 +188,7 @@ class TestDatabase:
         mentor_lee_builds_aws_training = MentorsBuildingTrainings.objects.create(mentor=mentor_lee,
                                                                                  training=aws,
                                                                                  role=owner)
-        
+
         mentor_brandon_contributes_python_training = MentorsBuildingTrainings.objects.create(mentor=mentor_brandon,
                                                                                              training=python,
                                                                                              role=contributor)
@@ -217,10 +217,10 @@ class TestDatabase:
 
         programming_story = Section.objects.create(title='the history of programming',
                                                    description='what is the history of programming')
-        
+
         server_role = Section.objects.create(title='what a server can do?',
                                              description='a server can do a lot of things, even burning')
-        
+
 
         """
         We associate these sections to the existing trainings:
@@ -258,7 +258,7 @@ class TestDatabase:
 
         first_language = Chapter.objects.create(title='a computer can listen',
                                                 description='you can talk with a computer, and it is quite funny.')
-        
+
         server_computer = Chapter.objects.create(title='a chapter with no interest',
                                                  description='a server is a computer but... Is a computer a server?')
 
