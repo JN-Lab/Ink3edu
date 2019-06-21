@@ -21,8 +21,16 @@ class TrainingListTest(APITestCase):
         TestDatabase.create()
 
     def test_get_all_trainings(self):
+<<<<<<< HEAD
         url = reverse('trainings_list')
         response = self.client.get(url, format='json')
         trainings = Training.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         print(trainings)
+=======
+        url = reverse('trainings:trainings_list')
+        response = self.client.get(url, format='json')
+        trainings = Training.objects.all()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print(trainings)
+>>>>>>> 67ccf321dff86a7afbc88a41af28060547fa48fa
