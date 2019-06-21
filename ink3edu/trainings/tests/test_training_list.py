@@ -1,3 +1,5 @@
+import json
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -21,16 +23,13 @@ class TrainingListTest(APITestCase):
         TestDatabase.create()
 
     def test_get_all_trainings(self):
-<<<<<<< HEAD
-        url = reverse('trainings_list')
-        response = self.client.get(url, format='json')
-        trainings = Training.objects.all()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(trainings)
-=======
         url = reverse('trainings:trainings_list')
         response = self.client.get(url, format='json')
-        trainings = Training.objects.all()
+        trainings = Training.objects.count()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(trainings)
->>>>>>> 67ccf321dff86a7afbc88a41af28060547fa48fa
+        self.assertEqual(len(response.data), trainings)
+        
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
