@@ -7,7 +7,7 @@ from ink3edu.helper_dbtestdata import TestDatabase
 from ink3edu.users.models import User
 from ink3edu.trainings.models import Training, Section, SectionsInTrainings, Chapter, ChaptersInSections, Status, Category
 
-class TrainingListTest(APITestCase):
+class TrainingTest(APITestCase):
     """
     This class tests all the interactions we can have with a list of Trainings.
     What will be tested:
@@ -91,41 +91,24 @@ class TrainingListTest(APITestCase):
         look = json.loads(response_str)
         print(look)
 
-class SectionListTest(APITestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        """
-        We create a database to realize the different tests of the class
-        """
-        TestDatabase.create()
-
-    def test_get_all_sections_simple_info(self):
-        url = reverse('trainings:sections_simple_list')
+    def test_get_one_training_simple_info(self):
+        python = Training.objects.get(title='python for beginner')
+        url = reverse('trainings:training_simple_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
-        sections = Section.objects.count()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), sections)
 
-    def test_get_all_sections_long_info(self):
-        url = reverse('trainings:sections_long_list')
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
+
+    def test_get_one_training_long_info(self):
+        python = Training.objects.get(title='python for beginner')
+        url = reverse('trainings:training_long_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
-        sections = Section.objects.count()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), sections)
 
-class ChapterListTest(APITestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        """
-        We create a database to realize the different tests of the class
-        """
-        TestDatabase.create()
-
-    def test_get_all_chapters_info(self):
-        url = reverse('trainings:chapters_list')
-        response = self.client.get(url, format='json')
-        chapters = Chapter.objects.count()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), chapters)
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
