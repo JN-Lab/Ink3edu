@@ -16,15 +16,13 @@ class ChapterTest(APITestCase):
         """
         TestDatabase.create()
 
-    def test_get_all_chapters_info(self):
+    def test_get_all_chapters_info_not_connected(self):
         url = reverse('trainings:chapters_list')
         response = self.client.get(url, format='json')
-        chapters = Chapter.objects.count()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), chapters)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_one_chapter_info(self):
+    def test_get_one_chapter_info_not_connected(self):
         computer_birth = Chapter.objects.get(title='the birth of computer')
         url = reverse('trainings:chapter_detail', kwargs={'pk': computer_birth.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

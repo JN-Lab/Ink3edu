@@ -16,28 +16,24 @@ class SectionTest(APITestCase):
         """
         TestDatabase.create()
 
-    def test_get_all_sections_simple_info(self):
+    def test_get_all_sections_simple_info_not_connected(self):
         url = reverse('trainings:sections_simple_list')
         response = self.client.get(url, format='json')
-        sections = Section.objects.count()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), sections)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_all_sections_long_info(self):
+    def test_get_all_sections_long_info_not_connected(self):
         url = reverse('trainings:sections_long_list')
         response = self.client.get(url, format='json')
-        sections = Section.objects.count()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), sections)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_one_section_simple_info(self):
+    def test_get_one_section_simple_info_not_connected(self):
         programming_story = Section.objects.get(title='the history of programming')
         url = reverse('trainings:section_simple_detail', kwargs={'pk': programming_story.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_one_section_long_info(self):
+    def test_get_one_section_long_info_not_connected(self):
         programming_story = Section.objects.get(title='the history of programming')
         url = reverse('trainings:section_long_detail', kwargs={'pk': programming_story.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

@@ -63,52 +63,28 @@ class TrainingTest(APITestCase):
         """
         TestDatabase.create()
 
-    def test_get_all_trainings_simple_info(self):
+    def test_get_all_trainings_simple_info_not_connected(self):
         """
         This test checks:
 
         """
         url = reverse('trainings:trainings_simple_list')
         response = self.client.get(url, format='json')
-        trainings = Training.objects.count()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), trainings)
-        
-        # Temporary, just to be familiar with what we get as output
-        response_str = json.dumps(response.data)
-        look = json.loads(response_str)
-        print(look)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_all_trainings_long_info(self):
+    def test_get_all_trainings_long_info_not_connected(self):
         url = reverse('trainings:trainings_long_list')
         response = self.client.get(url, format='json')
-        trainings = Training.objects.count()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), trainings)
-        
-        # Temporary, just to be familiar with what we get as output
-        response_str = json.dumps(response.data)
-        look = json.loads(response_str)
-        print(look)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_get_one_training_simple_info(self):
+    def test_get_one_training_simple_info_not_connected(self):
         python = Training.objects.get(title='python for beginner')
         url = reverse('trainings:training_simple_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        # Temporary, just to be familiar with what we get as output
-        response_str = json.dumps(response.data)
-        look = json.loads(response_str)
-        print(look)
-
-    def test_get_one_training_long_info(self):
+    def test_get_one_training_long_info_not_connected(self):
         python = Training.objects.get(title='python for beginner')
         url = reverse('trainings:training_long_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        # Temporary, just to be familiar with what we get as output
-        response_str = json.dumps(response.data)
-        look = json.loads(response_str)
-        print(look)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

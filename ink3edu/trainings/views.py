@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 
 from .models import Training, Section, Chapter
 from .serializers import TrainingLongSerializer, TrainingSimpleSerializer, SectionLongSerializer, SectionSimpleSerializer, ChapterSerializer
