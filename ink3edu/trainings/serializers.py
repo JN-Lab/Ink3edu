@@ -54,7 +54,7 @@ class TrainingSimpleSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Training
-        fields = ('id' ,'title', 'description', 'status', 'price','category')
+        fields = ('id' ,'title', 'description', 'status', 'price','category', 'mentors', 'students')
 
 class TrainingLongSerializer(serializers.ModelSerializer):
     """
@@ -65,4 +65,4 @@ class TrainingLongSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Training
-        fields = ('id' ,'title', 'description', 'status', 'price','category', 'sections')
+        fields = ('id' ,'title', 'description', 'status', 'price','category','mentors', 'students', 'sections')
