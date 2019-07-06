@@ -23,7 +23,19 @@ class StudentTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), students)
 
-         # Temporary, just to be familiar with what we get as output
+        # Temporary, just to be familiar with what we get as output
         response_str = json.dumps(response.data)
         look = json.loads(response_str)
-        print(look)   
+        print(look)
+
+    def test_get_one_student_info(self):
+        john = User.objects.get(username='john')
+        john_student = Student.objects.get(user=john)
+        url = reverse('interactions:student_detail', kwargs={'pk': john_student.pk})
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)

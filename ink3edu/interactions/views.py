@@ -10,9 +10,23 @@ class StudentList(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    This view gets all the info from one student
+    """
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
 class MentorList(generics.ListAPIView):
     """
     This view gets all the mentors information
+    """
+    queryset = Mentor.objects.all()
+    serializer_class = MentorSerializer
+
+class MentorDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    This view gets all the info from one mentor
     """
     queryset = Mentor.objects.all()
     serializer_class = MentorSerializer
