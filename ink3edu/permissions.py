@@ -10,7 +10,6 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         return request.user.is_staff == True
 
 class IsMentorOrReadOnly(permissions.BasePermission):
-    
     pass
 
 class IsMentorOwnerOrReadOnly(permissions.BasePermission):
