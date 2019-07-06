@@ -17,7 +17,7 @@ class StudentTest(APITestCase):
         TestDatabase.create()
 
     def test_get_all_students_info(self):
-        url = reverse('interactions: students_list')
+        url = reverse('interactions:students_list')
         response = self.client.get(url, format='json')
         students = Student.objects.count()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
