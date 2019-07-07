@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from ink3edu.interactions.models import Group
+from ink3edu.interactions.models import Group, Mentor
 from ink3edu.trainings.models import Chapter
 
 class ContentsInChapters(models.Model):
@@ -29,9 +29,11 @@ class Content(models.Model):
     
     title = models.CharField(max_length=250)
     description = models.TextField()
-    group = models.ForeignKey(Group,
-                              on_delete=models.CASCADE,
-                              related_name='%(class)s_related')
+    mentor = models.ForeignKey(Mentor,
+                               on_delete=models.CASCADE,
+                              related_name='contents')
+    groups = models.ManyToManyField(Group,
+                                    related_name='contents')
     chapters = models.ManyToManyField(Chapter,
                                       through='ContentsInChapters',
                                       related_name='contents')

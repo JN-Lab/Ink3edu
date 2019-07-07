@@ -3,6 +3,7 @@
 from .users.models import User
 from .trainings.models import Training, Section, SectionsInTrainings, Chapter, ChaptersInSections, Status, Category
 from .interactions.models import Student, Mentor, Role, Group, StudentsFollowingTrainings, MentorsBuildingTrainings
+from .content.models import Content, ContentsInChapters
 
 class TestDatabase:
     """
@@ -26,6 +27,7 @@ class TestDatabase:
         # We create an admin account which is also a mentor
         admin = User.objects.create_superuser(username='admin_user', password='admin_password', email='test@test.com')
         mentor_admin = Mentor(user=admin)
+        mentor_admin.description = "Hi, I am an admin account. I rocks"
         mentor_admin.save()
 
         # We create john which is a student (student_john)
@@ -47,6 +49,7 @@ class TestDatabase:
         # We create brandon which is a mentor (mentor_brandon)
         brandon = User.objects.create_user(username='brandon', password='brandon_password')
         mentor_brandon = Mentor(user=brandon)
+        mentor_brandon.description = "Hey ! I am Brandon! I love talking about programming stuff."
         mentor_brandon.save()
 
         # We create george which is a student (student_george) and a mentor (mentor_george)
@@ -54,6 +57,7 @@ class TestDatabase:
         student_george = Student(user=george)
         student_george.save()
         mentor_george = Mentor(user=george)
+        mentor_george.description = "I am George from Georgia."
         mentor_george.save()
 
         # We create mike which is a student (student_mike) and a mentor (mentor_mike)
@@ -61,6 +65,7 @@ class TestDatabase:
         student_mike = Student(user=mike)
         student_mike.save()
         mentor_mike = Mentor(user=mike)
+        mentor_mike.description = "Hi, I am Mike and I am a programming teacher. I also love learning new things."
         mentor_mike.save()
 
         """
@@ -286,3 +291,37 @@ class TestDatabase:
         server_computer_in_server_role = ChaptersInSections.objects.create(section=server_role,
                                                                            chapter=server_computer,
                                                                            chapter_number=1)
+
+        """
+        We create some contents:
+            - the content google doc What is a server:
+                -> created by mentor_lee so...
+                -> ... associated to grp_a
+            - the content google form Need your Feedback:
+                -> created by mentor_admin so...
+                -> associated to grp_a and grp_b
+            - the content google spreadsheet python algorith:
+                -> created by mentor_brandon so...
+                -> associated to grp_b
+            - the content google form Test what you understood:
+                -> created by mentor_brandon so...
+                -> associated to grp_b
+        """
+
+        what_is_server = Content.objects.create(title="What is a server",
+                                                description='This content describes a server and its role.',
+                                                mentor=mentor_lee,
+                                                url_content_readonly='https://google.com?content=server&share=readonly',
+                                                url_content_modification_allowed='https://google.com?content=server&share=modification')
+        what_is_server.groups.set(mentor_lee.groups.all())
+
+        
+        """
+        We associate the different contents to some chapters:
+            - the content what is a server is the first content of server_computer chapter
+
+        """
+
+        what_is_server_in_server_computer_chapter = ContentsInChapters.objects.create(chapter=server_computer,
+                                                                                      content=what_is_server,
+                                                                                      content_number=1)
