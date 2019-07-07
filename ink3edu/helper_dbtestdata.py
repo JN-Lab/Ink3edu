@@ -300,7 +300,7 @@ class TestDatabase:
             - the content google form Need your Feedback:
                 -> created by mentor_admin so...
                 -> associated to grp_a and grp_b
-            - the content google spreadsheet python algorith:
+            - the content google spreadsheet python algorithm:
                 -> created by mentor_brandon so...
                 -> associated to grp_b
             - the content google form Test what you understood:
@@ -315,13 +315,64 @@ class TestDatabase:
                                                 url_content_modification_allowed='https://google.com?content=server&share=modification')
         what_is_server.groups.set(mentor_lee.groups.all())
 
-        
+        need_your_feedback = Content.objects.create(title='Need your feedback',
+                                                    description='Did you learn something interesting ? Please, give us your feedback.',
+                                                    mentor=mentor_admin,
+                                                    url_content_readonly='https://google.com?content=feedback&share=readonly',
+                                                    url_content_modification_allowed='https://google.com?content=feedback&share=modification')
+        need_your_feedback.groups.set(mentor_admin.groups.all())
+
+        python_algorithm = Content.objects.create(title="Learn Algorith with Python",
+                                                  description="Some basics on algorithm with Python",
+                                                  mentor=mentor_brandon,
+                                                  url_content_readonly='https://google.com?content=algorithm&share=readonly',
+                                                  url_content_modification_allowed='https://google.com?content=algorithm&share=modification')
+        python_algorithm.groups.set(mentor_brandon.groups.all())
+
+        test_form_algorithm = Content.objects.create(title='Test on Algorithm with Python',
+                                                     description='Test what you understood from this section thanks to this test',
+                                                     mentor=mentor_brandon,
+                                                     url_content_readonly='https://google.com?content=test_algorithm&share=readonly',
+                                                     url_content_modification_allowed='https://google.com?content=test_algorithm&share=modification')
+        test_form_algorithm.groups.set(mentor_brandon.groups.all())
+
         """
         We associate the different contents to some chapters:
-            - the content what is a server is the first content of server_computer chapter
-
+            - the content what_is_server is:
+                - the first content of server_computer chapter
+                - the second content of computer_birth chapter
+            - the content python_algorithm is:
+                - the first content of computer_birth chapter
+                - the second content of server_computer chapte
+            - the content test_form_algorithm is:
+                - the third content of computer_birth
+            - the content need_your_feedback is:
+                - the third content of server_computer
+                - the fourth content of computer_birth
         """
 
         what_is_server_in_server_computer_chapter = ContentsInChapters.objects.create(chapter=server_computer,
                                                                                       content=what_is_server,
                                                                                       content_number=1)
+        what_is_server_in_computer_birth_chapter = ContentsInChapters.objects.create(chapter=computer_birth,
+                                                                                      content=what_is_server,
+                                                                                      content_number=2)
+
+        python_algorithm_in_computer_birth_chapter = ContentsInChapters.objects.create(chapter=computer_birth,
+                                                                                       content=python_algorithm,
+                                                                                       content_number=1)
+        python_algorithm_in_server_computer_chapter = ContentsInChapters.objects.create(chapter=server_computer,
+                                                                                        content=python_algorithm,
+                                                                                        content_number=2)
+                                        
+        test_form_algorithm_in_computer_birth_chapter = ContentsInChapters.objects.create(chapter=computer_birth,
+                                                                                          content=test_form_algorithm,
+                                                                                          content_number=3)
+
+        need_your_feedback_in_server_computer_chapter = ContentsInChapters.objects.create(chapter=server_computer,
+                                                                                          content=need_your_feedback,
+                                                                                          content_number=3)
+
+        need_your_feedback_in_computer_birth_chapter = ContentsInChapters.objects.create(chapter=computer_birth,
+                                                                                          content=need_your_feedback,
+                                                                                          content_number=4)
