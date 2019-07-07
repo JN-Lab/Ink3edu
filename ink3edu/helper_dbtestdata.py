@@ -41,6 +41,7 @@ class TestDatabase:
         # We create lee which is a mentor (mentor_lee)
         lee = User.objects.create_user(username='lee', password='lee_password')
         mentor_lee = Mentor(user=lee)
+        mentor_lee.description = "I am Lee and really happy to share my knowledge"
         mentor_lee.save()
 
         # We create brandon which is a mentor (mentor_brandon)

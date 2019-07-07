@@ -70,21 +70,21 @@ class TrainingTest(APITestCase):
         """
         url = reverse('trainings:trainings_simple_list')
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_all_trainings_long_info_not_connected(self):
         url = reverse('trainings:trainings_long_list')
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_one_training_simple_info_not_connected(self):
         python = Training.objects.get(title='python for beginner')
         url = reverse('trainings:training_simple_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_one_training_long_info_not_connected(self):
         python = Training.objects.get(title='python for beginner')
         url = reverse('trainings:training_long_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
