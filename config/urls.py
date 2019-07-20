@@ -18,6 +18,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path("trainings/", include("ink3edu.trainings.urls", namespace="trainings")),
     path("interactions/", include("ink3edu.interactions.urls", namespace="interactions")),
+    path("contents/", include("ink3edu.content.urls", namespace="content")),
     # Set up rest framework auth
     path('api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
