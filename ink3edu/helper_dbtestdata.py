@@ -299,13 +299,13 @@ class TestDatabase:
                 -> ... associated to grp_a
             - the content google form Need your Feedback:
                 -> created by mentor_admin so...
-                -> associated to grp_a and grp_b
+                -> ... associated to grp_a and grp_b
             - the content google spreadsheet python algorithm:
                 -> created by mentor_brandon so...
-                -> associated to grp_b
+                -> ... associated to grp_b
             - the content google form Test what you understood:
                 -> created by mentor_brandon so...
-                -> associated to grp_b
+                -> ... associated to grp_b
         """
 
         what_is_server = Content.objects.create(title="What is a server",
