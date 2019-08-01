@@ -21,8 +21,18 @@ class ChapterTest(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
+
     def test_get_one_chapter_info_not_connected(self):
         computer_birth = Chapter.objects.get(title='the birth of computer')
         url = reverse('trainings:chapter_detail', kwargs={'pk': computer_birth.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)

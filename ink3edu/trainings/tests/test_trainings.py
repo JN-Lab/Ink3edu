@@ -72,10 +72,20 @@ class TrainingTest(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
+
     def test_get_all_trainings_long_info_not_connected(self):
         url = reverse('trainings:trainings_long_list')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
 
     def test_get_one_training_simple_info_not_connected(self):
         python = Training.objects.get(title='python for beginner')
@@ -83,8 +93,18 @@ class TrainingTest(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
+
     def test_get_one_training_long_info_not_connected(self):
         python = Training.objects.get(title='python for beginner')
         url = reverse('trainings:training_long_detail', kwargs={'pk': python.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)

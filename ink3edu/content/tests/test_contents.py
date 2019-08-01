@@ -33,3 +33,8 @@ class ContentTest(APITestCase):
         url = reverse('content:content_detail', kwargs={'pk': what_is_server.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)

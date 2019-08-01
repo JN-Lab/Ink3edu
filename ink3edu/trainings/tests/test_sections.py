@@ -21,10 +21,20 @@ class SectionTest(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
+
     def test_get_all_sections_long_info_not_connected(self):
         url = reverse('trainings:sections_long_list')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
 
     def test_get_one_section_simple_info_not_connected(self):
         programming_story = Section.objects.get(title='the history of programming')
@@ -32,8 +42,18 @@ class SectionTest(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
+
     def test_get_one_section_long_info_not_connected(self):
         programming_story = Section.objects.get(title='the history of programming')
         url = reverse('trainings:section_long_detail', kwargs={'pk': programming_story.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Temporary, just to be familiar with what we get as output
+        response_str = json.dumps(response.data)
+        look = json.loads(response_str)
+        print(look)
